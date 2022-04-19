@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>new registration</title>
+<script src="D:\space_magic\studyTogether\WebContent\js/jquery.js"></script>
+<script>
+var now = new Date();
+var year = now.getFullYear();
+var month = now.getMonth()+1;	// 월
+var date = now.getDate();	// 일
+var today = year +""+ month +""+ date;
+	  
+	$(function() {
+		$("#save_data").click(function() {
+			alert("succeess");
+		        $.ajax({
+		            url: "input_procsee.jsp",
+		            type: "post",
+		            data: { 
+							inout:$('#inout').val(),
+							tod : today,
+			                success : function(data){
+			                }
+						  }
+		        });
+		});
+	});
+	
+</script>
+
+</head>
+<body>
+<form method="post"><br><br>
+	<textarea cols = '150' rows = '20' name='inout' id='inout'></textarea>
+	<input type="submit" value="기록하기" id="save_data"/>
+</form>
+</body>
+</html>
