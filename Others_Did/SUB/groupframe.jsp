@@ -18,14 +18,9 @@
     <title>Document</title>
     <script src="js/jquery.js"></script>
     <script>
-        $(function () {
-            $("#check").click(function () {
-                $("#check").hide();
-            })
-            $("#write").click(function () {
-                $("#check").show();
-            })
-        })
+    	function join() {
+   			confirm('가입하시겠습니까?')
+		}
     </script>
     <style>
         *{margin: 5px; padding: 5px;}
@@ -42,7 +37,7 @@
         }
         .date{
         	float:left;
-            width: 450px;
+            width: 440px;
             height : 50px;
             text-align: center;
             border: 1px solid black;
@@ -50,7 +45,7 @@
         .description{
             float: right;
 			height : 50px;
-            width : 450px;
+            width : 440px;
             border: 1px solid black;
             text-align: center;
         }
@@ -62,8 +57,14 @@
             border: 1px solid black;
         }
     </style>
+<%
+	request.setCharacterEncoding("UTF-8");
+%>
 </head>
 <body>
+<%
+	response.setCharacterEncoding("UTF-8");
+%>
 	<%-- GROUPING --%>
 	<%
 		groupStudyRecordDBBean gsrd = groupStudyRecordDBBean.getInstance();
@@ -83,6 +84,7 @@
        		 <h1>목표</h1>
     	</div>
         <div>
+        	<form action="write.jsp" method = "post" name = "form">
         	<table class="box">
         		<tr>
         			<td class ="date" colspan="3">
@@ -94,27 +96,29 @@
 			gsr = list.get(i);
 			
 	%>
-			<form method = "post" name = "form">
         		<tr>
         			<td class ="date">
 		        		<b style="float: left;"><%=gsr.getGroupmember() %></b>&emsp;&emsp;
 		        		<input type ="hidden" name ="pnum" value = "<%=gsr.getPnum() %>"/>
 		        		<input type ="hidden" name ="groupmember" value = "<%=gsr.getGroupmember() %>"/>
 		        		<div style="float: right;">
-		        			<input type = "submit" onclick="location.href='input2.jsp';javascript:form.action='input2.jsp'" value = "기록">
+		        			<input type = "submit" onclick="javascript:form.action='write.jsp'" value = "기록">
+		        			<!--  <input type="submit" value="기록">-->
+		        			 <button onclick="location.href='edit.jsp';javascript:form.action='edit.jsp'">확인</button>
+		        			<!-- input type = "submit" onclick="location.href='input2.jsp';javascript:form.action='input2.jsp'" value = "기록"> -->
 		        			 <!-- <button onclick="location.href='output.jsp';javascript:form.action='output.jsp'">확인</button> --> 
-		        			 <!--<button onclick="location.href='output.jsp';javascript:form.action='output.jsp'">확인</button>--> 
-		        			 <input type = "submit" onclick="location.href='edit.jsp';javascript:form.action='edit.jsp'" value = "확인"> 
+		        			 <!-- <button onclick="location.href='output.jsp';javascript:form.action='output.jsp'">확인</button> --> 
 		        		</div>
         			</td>
         		</tr>
-        	</form>
 <% 		
 	}	
 %>        		
         	</table>
-  
+        	</form>
         </div>
+        
+        
 		 <div>
 		 	<table class="description">
 		 		<tr>
@@ -122,13 +126,14 @@
 				 		<h2>그룹 이름</h2>
 		 			</td>
 		 		</tr>
+		 		
 	 <% 
 		for(int i =0; i<list.size();i++){
 			gsr = list.get(i);
 			
 	%>
 		 		<tr>
-		 		<td class ="date">
+		 			<td class ="date">
 		        		<b style="float: left;">이름</b>&emsp;&emsp;
 		        		<div style="float: right;">
 		        			<b>언어 / 분야</b>
@@ -137,8 +142,9 @@
 		 		</tr>
 	<% 		
 	}	
-	%> 	 		
-		 	</table>
-	 	</div>
+	%>
+	
+	</table>
+	</div>
 </body>
 </html>
