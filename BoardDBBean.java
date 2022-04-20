@@ -367,9 +367,9 @@ public class BoardDBBean {
 		
 		try {
 			conn = getConnection();
-			sql="select b_status from boards where b_id=?";
+			sql = "select b_id from boards where b_id=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(groupNum, 1);
+			pstmt.setString(1, board.getB_id());;
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -377,7 +377,7 @@ public class BoardDBBean {
 				if (id.equals(board.getB_id())) {
 					sql="update b_status set b_status=1 from boards where b_id=?";
 					pstmt = conn.prepareStatement(sql);
-					pstmt.setInt(1, b_id);
+					pstmt.setInt(1, board.getB_status());
 					pstmt.executeUpdate();
 					re = 1;
 				}else {
