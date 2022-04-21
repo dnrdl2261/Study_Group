@@ -1,38 +1,85 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="member.MemberBean"%>
+<%@page import="member.MemberDBBean"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <% 
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ë©”ì¸</title>
- <style>
- 	#wrap{
-		width:500px;
-		margin-left:auto; 
-		margin-right:auto;
-		text-align:center;
-		}
- </style>
+<meta charset="EUC-KR">
+<title>main</title>
 </head>
+<style>
+	table{background-color: #ccc}
+</style>
 <body>
-	<br><br>
-	<div id="wrap">
-	<form action="logOut.jsp" method="post">
-		<b>
-			<font size="5" color="skyblue">ë©”ì¸í™”ë©´</font>
-		</b>
-		<br><br>
-		<h2>
-			<font color="red"><%= name %>(<%= id %>)</font>ë‹˜ ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤. 
-		</h2>
-		<br><br>
-		<input type="submit" value="ë¡œê·¸ì•„ì›ƒ">
-		&nbsp;&nbsp;&nbsp;
-		<input type="button" value="ë‚´ì •ë³´" onclick="javascript:window.location='memberInfo.jsp'">
-	</form>
+¾È³çÇÏ¼¼¿ä. <%= name %>(<%= id %>)´Ô
+	<div align="right">
+	<%
+		// ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇßÀ» ¶§ ¼¼¼Ç¿¡ °ªÀÌ ´ã°ÜÀÖ´ÂÁö Ã¼Å©
+		if(session.getAttribute("id") != null){
+			id = (String)session.getAttribute("id");
+		}
+		//·Î±×ÀÎÀ» ÇÏÁö ¾Ê¾ÒÀ» ¶§ º¸¿©Áö´Â È­¸é
+		if(id == null) {
+	%>
+		<input type="button" value="·Î±×ÀÎ" onclick="javascript:window.location='login.jsp'">
+		&nbsp;
+		<input type="button" value="È¸¿ø°¡ÀÔ" onclick="javascript:window.location='register.jsp'">
+	<%
+		//·Î±×ÀÎÀÌ µÇ¾î ÀÖ´Â »óÅÂ¿¡¼­ º¸¿©Áö´Â È­¸é
+		}else{
+	%>
+		<input type="button" value="³»Á¤º¸" onclick="javascript:window.location='memberInfo.jsp'">
+		&nbsp;
+		<input type="button" value="³ªÀÇ ½ºÅÍµğ" onclick="javascript:window.location='.jsp'">
+		&nbsp;
+		<input type="button" value="·Î±×¾Æ¿ô" onclick="javascript:window.location='logOut.jsp'">
+	<%
+		}
+	%>
+	</div>
+	<br><br><br><br><br><br><br>
+	<table align="center">
+		<form action="list.jsp" method="post">
+			<tr>
+				<td width="150" align="center">
+					<select>
+						<option value="Áö¿ª" selected="selected">Áö¿ª</option>
+						<option value="seoul">¼­¿ï</option>
+						<option value="gyeonggi">°æ±â</option>
+						<option value="incheon">ÀÎÃµ</option>
+						<option value="busan">ºÎ»ê</option>
+						<option value="daegu">´ë±¸</option>
+						<option value="daejeon">´ëÀü</option>
+						<option value="gwangju">±¤ÁÖ</option>
+						<option value="online">¿Â¶óÀÎ</option>
+					</select>
+				</td>
+				<td width="150" align="center">
+					<select>
+						<option value="°³¹ßºĞ¾ß" selected="selected">°³¹ß ºĞ¾ß</option>
+						<option value="backend">¹é¿£µå</option>
+						<option value="frontend">ÇÁ·ĞÆ®¿£µå</option>
+					</select>
+				</td>
+				<td width="150" align="center">
+					<select>
+						<option value="¾ğ¾î" selected="selected">¾ğ¾î</option>
+						<option value="java">java</option>
+						<option value="python">python</option>
+						<option value="jsp">jsp</option>
+						<option value="spring">spring</option>
+					</select>
+				</td>
+			</tr>
+		</form>
+	</table>
+	<div align="center">
+		<br><br><br><br><br><br><br>
+		<input type="submit" value="Ã£±â">
 	</div>
 </body>
 </html>

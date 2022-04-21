@@ -26,7 +26,7 @@ public class MemberDBBean {
 	public int insertMember(MemberBean Member) throws Exception{ //데이터를 삽입하기 위한 메소드
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String sql = "insert into stmembers values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into STMEMBERS values(STUDY_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
 		//PreparedStatment를 사용했기 때문에 ?로 값을 받아서 넣음
 		int re = -1; //re -> 회원가입이면 1아니면 -1로 나타냄
 		
@@ -41,6 +41,7 @@ public class MemberDBBean {
 			pstmt.setString(6, Member.getMem_email());
 			pstmt.setString(7, Member.getMem_interests());
 			pstmt.setString(8, Member.getMem_introduce());
+			pstmt.setInt(9, Member.getMem_report());
 			
 			pstmt.executeUpdate(); //파라미터를 다 넣고 insert문을 실행
 			re = 1; //제대로 진행되지 않으면 catch로 실행되면서 re가 -1로 됨
@@ -126,6 +127,7 @@ public class MemberDBBean {
 
 			if (rs.next()) { //아이디가 일치하는 로우 존재
 				member = new MemberBean();
+				member.setMem_num(rs.getInt("mem_num"));
 				member.setMem_id(rs.getString("mem_id"));
 				member.setMem_pw(rs.getString("mem_pw"));
 				member.setMem_name(rs.getString("mem_name"));
@@ -134,6 +136,7 @@ public class MemberDBBean {
 				member.setMem_email(rs.getString("mem_email"));
 				member.setMem_interests(rs.getString("mem_interests"));
 				member.setMem_introduce(rs.getString("mem_introduce"));
+				member.setMem_report(rs.getInt("mem_report"));
 			}
 			con.close();
 			ps.close();
@@ -191,8 +194,9 @@ public class MemberDBBean {
                
                 
                 // 자바빈에 정보를 담는다.
-                member = new MemberBean();
-                member.setMem_id(rs.getString("mem_id"));
+            	member = new MemberBean();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
 				member.setMem_pw(rs.getString("mem_pw"));
 				member.setMem_name(rs.getString("mem_name"));
 				member.setMem_jumin(rs.getString("mem_jumin"));
@@ -200,6 +204,7 @@ public class MemberDBBean {
 				member.setMem_email(rs.getString("mem_email"));
 				member.setMem_interests(rs.getString("mem_interests"));
 				member.setMem_introduce(rs.getString("mem_introduce"));
+				member.setMem_report(rs.getInt("mem_report"));
             }
  
             return member;
